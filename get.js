@@ -6,7 +6,7 @@ function getRandomInt() {
     const fix = Math.floor(Math.random() * results.length);
     const comment = results[fix];
 
-    result.textContent = comment + 'です。';
+    result.textContent = `${comment}です。`;
 }
 
 // function getRandomInt(max) {
