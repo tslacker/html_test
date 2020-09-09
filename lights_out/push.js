@@ -4,7 +4,6 @@ const twentyFive = 25;
 let buttonCheck = [];
 for(let i=0; i < 25; i++) {
     buttonCheck.push(Math.floor(Math.random() * 2));
-    let j = '"'+i+'"';
         if (buttonCheck[i] === 1) {
             document.getElementById(i).style.background = 'red';
         } else {
@@ -58,5 +57,14 @@ function pushButton(buttonNo) {
             buttonCheck[intNo + 1] = 1;
             document.getElementById(intNo + 1).style.background = 'red';
         }
+    }
+
+    let fix = 0;
+    for(let i = 0; i < 25; i++) {
+        fix += buttonCheck[i];
+    }
+
+    if (fix == 3 || fix == 25) {
+        result.textContent = `ゲームクリアー`;
     }
 }
