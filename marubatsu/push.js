@@ -5,7 +5,7 @@
 
     let player = -1;
 
-    for (let i = 1; i < 10; i++) {
+    for (let i = 1; i <= 9; i++) {
         const newButton = document.createElement('button');
         newButton.id = `Button${i}`;
         newButton.classList.add('Button');
