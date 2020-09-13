@@ -56,6 +56,16 @@ function pushButton(intNo) {
         player = colorChange(intNo, player);
     }
 
+    let check = 0;
+    for (let i = 1; i < 10; i ++) {
+        if (buttonCheck[i] === 0) {
+            check = check + 1;
+        }
+    }
+    if (check === 0) {
+        result.textContent = '引き分け';
+    }
+    
     let fix = 0;
     for (let i = 1; i < 10; i += 3) {
         for(let j = i; j < 3 + i; j++) {
@@ -84,14 +94,4 @@ function pushButton(intNo) {
         judge(fix);
     }
     fix = 0;
-
-    let check = 0;
-    for (let i = 1; i < 10; i ++) {
-        if (buttonCheck[i] === 0) {
-            check = check + 1;
-        }
-    }
-    if (check === 0) {
-        result.textContent = '引き分け';
-    }
 }
