@@ -44,7 +44,7 @@
     }
 
     function finish() {
-        for (let i = 1; i < 10; i++) {
+        for (let i = 1; i <= 9; i++) {
             document.getElementById(`Button${i}`).disabled = true;
         }
     }
@@ -55,31 +55,24 @@
             player = colorChange(intNo, player);
         }
 
-        let check = 0;
-        for (let i = 1; i < 10; i ++) {
-            if (buttonCheck[i] === 0) {
-                check = check + 1;
-            }
-        }
-        if (check === 0) {
+        if (!buttonCheck.includes(0)) {
             result.textContent = '引き分け';
         }
 
-        let fix = 0;
-        for (let i = 1; i < 10; i += 3) {
+        for (let i = 1; i <= 9; i += 3) {
+            let fix = 0;
             for(let j = i; j < 3 + i; j++) {
                 fix = fix + buttonCheck[j];
             }
             judge(fix);
-            fix = 0;
         }
 
-        for (let i = 1; i < 4; i++) {
-            for(let j = 1 * i; j < 10; j += 3) {
+        for (let i = 1; i <= 3; i++) {
+            let fix = 0;
+            for(let j = 1 * i; j <= 9; j += 3) {
                 fix = fix + buttonCheck[j];
             }
             judge(fix);
-            fix = 0;
         }
 
         judge(buttonCheck[1] + buttonCheck[5] + buttonCheck[9]);
