@@ -5,15 +5,15 @@ let buttonCheck = [9];
 let player = -1;
 
 for (let i = 1; i < 10; i++) {
-    const newButton = document.createElement("button");
+    const newButton = document.createElement('button');
     newButton.id = `Button${i}`;
     newButton.classList.add('Button');
-    newButton.addEventListener("click", () => pushButton(i));
-    const getGame = document.getElementById("game");
+    newButton.addEventListener('click', () => pushButton(i));
+    const getGame = document.getElementById('game');
     getGame.appendChild(newButton);
 
     if (i % 3 === 0) {
-        const newBr = document.createElement("br");
+        const newBr = document.createElement('br');
         getGame.appendChild(newBr);
     }
 
@@ -65,7 +65,7 @@ function pushButton(intNo) {
     if (check === 0) {
         result.textContent = '引き分け';
     }
-    
+
     let fix = 0;
     for (let i = 1; i < 10; i += 3) {
         for(let j = i; j < 3 + i; j++) {

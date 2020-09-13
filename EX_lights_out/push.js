@@ -3,13 +3,13 @@
 let buttonCheck = [];
 
 for (let i = 0; i < 25; i++) {
-    const newButton = document.createElement("button");
+    const newButton = document.createElement('button');
     newButton.id = `Button${i}`;
-    newButton.addEventListener("click", () => pushButton(i));
-    const getGame = document.getElementById("game");
+    newButton.addEventListener('click', () => pushButton(i));
+    const getGame = document.getElementById('game');
     getGame.appendChild(newButton);
     if (i % 5 === 4) {
-        const newBr = document.createElement("br");
+        const newBr = document.createElement('br');
         getGame.appendChild(newBr);
     }
     buttonCheck.push(true);
