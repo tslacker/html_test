@@ -1,8 +1,8 @@
 'use strict';
 
-let buttonCheck = [];
+let buttonCheck = [9];
 
-let player = 1;
+let player = -1;
 
 for (let i = 1; i < 10; i++) {
     const newButton = document.createElement("button");
@@ -14,33 +14,62 @@ for (let i = 1; i < 10; i++) {
         const newBr = document.createElement("br");
         getGame.appendChild(newBr);
     }
-    buttonCheck.push(0);
-    alert(buttonCheck[i]);
+    buttonCheck[i]=0;
 }
 
-function colorChange(position) {
-    if (buttonCheck[position] === 0) {
-        buttonCheck[position] = intNo;
-    }
+function colorChange(position, player) {
+    buttonCheck[position] = player;
 
     if (buttonCheck[position] === 1) {
         document.getElementById(`Button${position}`).style.background = 'blue';
-    } else {
+    } else if (buttonCheck[position] === -1) {
         document.getElementById(`Button${position}`).style.background = 'red';
+    } else {
+        document.getElementById(`Button${position}`).style.background = 'white';
     }
+     return player === 1 ? -1 : 1
 }
 
-function pushButton(intNo) {    
-    colorChange(intNo, player);
+function judge(fix) {
+    if (fix === 3) {
+        result.textContent = '青の勝ち';
+    } else if (fix === -3) {
+        result.textContent = '赤の勝ち';
+    }
 
-    player = player === 1 ? 0 : 1
+}
 
-    // aに対してa + c の結果がリターンされる。
-    // const fix = buttonCheck.reduce( (a, c) => c ? a + 1 : a , 0);
+function pushButton(intNo) {
+    
+    if (buttonCheck[intNo] === 0) {
+        player = colorChange(intNo, player);
+    }
 
-    // if (fix === 3) {
-    //     result.textContent = '青の勝ち';
-    // } else if (fix === -3) {
-    //     result.textContent = '赤の勝ち';
-    // }
+    let fix = 0;
+    for (let i = 1; i < 10; i += 3) {
+        for(let j = i; j < 3 + i; j++) {
+            fix = fix + buttonCheck[j];
+            judge(fix)
+        }
+        fix = 0;
+    }
+    for (let i = 1; i < 4; i++) {
+        for(let j = 1 * i; j < 10; j += 3) {
+            fix = fix + buttonCheck[j];
+            judge(fix)
+        }
+        fix = 0;
+    }
+
+    for (let i = 1; i < 10; i += 4) {
+        fix = fix + buttonCheck[i];
+        judge(fix)
+    }
+    fix = 0;
+
+    for (let i = 3; i < 8; i += 2) {
+        fix = fix + buttonCheck[i];
+        judge(fix)
+    }
+    fix = 0;
 }
