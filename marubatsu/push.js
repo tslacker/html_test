@@ -2,28 +2,28 @@
 
 let buttonCheck = [];
 
-for (let i = 0; i < 25; i++) {
+let player = 1;
+
+for (let i = 1; i < 10; i++) {
     const newButton = document.createElement("button");
     newButton.id = `Button${i}`;
     newButton.addEventListener("click", () => pushButton(i));
     const getGame = document.getElementById("game");
     getGame.appendChild(newButton);
-    if (i % 5 === 4) {
+    if (i % 3 === 0) {
         const newBr = document.createElement("br");
         getGame.appendChild(newBr);
     }
-    buttonCheck.push(true);
-    document.getElementById(`Button${i}`).style.background = 'blue';
-}
-
-for (let i = 0; i < 101; i++) {
-    pushButton(Math.floor(Math.random() * 25));
+    buttonCheck.push(0);
+    alert(buttonCheck[i]);
 }
 
 function colorChange(position) {
-    buttonCheck[position] = !(buttonCheck[position]);
+    if (buttonCheck[position] === 0) {
+        buttonCheck[position] = intNo;
+    }
 
-    if (buttonCheck[position]) {
+    if (buttonCheck[position] === 1) {
         document.getElementById(`Button${position}`).style.background = 'blue';
     } else {
         document.getElementById(`Button${position}`).style.background = 'red';
@@ -31,25 +31,16 @@ function colorChange(position) {
 }
 
 function pushButton(intNo) {    
-    colorChange(intNo);
+    colorChange(intNo, player);
 
-    if (intNo > 4) {
-        colorChange(intNo - 5);
-    }
-    if (intNo < 20) {
-        colorChange(intNo + 5);
-    }
-    if (intNo % 5 !== 0) {
-        colorChange(intNo - 1);
-    }
-    if (intNo % 5 !== 4) {
-        colorChange(intNo + 1);
-    }
+    player = player === 1 ? 0 : 1
 
     // aに対してa + c の結果がリターンされる。
-    const fix = buttonCheck.reduce( (a, c) => c ? a + 1 : a , 0);
+    // const fix = buttonCheck.reduce( (a, c) => c ? a + 1 : a , 0);
 
-    if (fix === 25) {
-        result.textContent = 'ゲームクリアー';
-    }
+    // if (fix === 3) {
+    //     result.textContent = '青の勝ち';
+    // } else if (fix === -3) {
+    //     result.textContent = '赤の勝ち';
+    // }
 }

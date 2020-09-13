@@ -28,8 +28,3 @@ function getRandomInt() {
     
 //     result.textContent = comment + 'です。';
 // }
-
-setTimeout (() => {
-        resolve("one")
-    }, 100);
-    // ↑この100はなに？
