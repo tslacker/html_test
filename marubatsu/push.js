@@ -28,8 +28,6 @@
             document.getElementById(`Button${position}`).style.background = 'blue';
         } else if (buttonCheck[position] === -1) {
             document.getElementById(`Button${position}`).style.background = 'red';
-        } else {
-            document.getElementById(`Button${position}`).style.background = 'white';
         }
 
         return player === 1 ? -1 : 1;
@@ -71,29 +69,20 @@
         for (let i = 1; i < 10; i += 3) {
             for(let j = i; j < 3 + i; j++) {
                 fix = fix + buttonCheck[j];
-                judge(fix);
             }
+            judge(fix);
             fix = 0;
         }
 
         for (let i = 1; i < 4; i++) {
             for(let j = 1 * i; j < 10; j += 3) {
                 fix = fix + buttonCheck[j];
-                judge(fix);
             }
+            judge(fix);
             fix = 0;
         }
 
-        for (let i = 1; i < 10; i += 4) {
-            fix = fix + buttonCheck[i];
-            judge(fix);
-        }
-        fix = 0;
-
-        for (let i = 3; i < 8; i += 2) {
-            fix = fix + buttonCheck[i];
-            judge(fix);
-        }
-        fix = 0;
+        judge(buttonCheck[1] + buttonCheck[5] + buttonCheck[9]);
+        judge(buttonCheck[3] + buttonCheck[5] + buttonCheck[7]);
     }
 })();
