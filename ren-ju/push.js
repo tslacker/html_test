@@ -2,14 +2,15 @@
 
 (() => {
     let buttonCheck = [];
+    let buttons = [];
     let player = -1;
 
+    const getGame = document.getElementById('game');
     for (let i = 0; i < 15; i++) {
-        let setData = [];
+        const setData = [];
+        buttons.push([]);
         for(let j = 0; j < 15; j++) {
             const newButton = document.createElement('button');
-
-            newButton.id = `ButtonR${i}C${j}`;
             if (i === 7 && j === 7) {
                 newButton.style.background = 'black';
                 setData.push(1);
@@ -18,14 +19,11 @@
                 newButton.style.background = 'brown';
             }
             newButton.addEventListener('click', () => pushButton(i, j));
-            const getGame = document.getElementById('game');
             getGame.appendChild(newButton);
-
-            if (j === 14) {
-                const newBr = document.createElement('br');
-                getGame.appendChild(newBr);
-            }
+            buttons[i].push(newButton);
         }
+        const newBr = document.createElement('br');
+        getGame.appendChild(newBr);
         buttonCheck.push(setData);
     }
 
@@ -33,9 +31,9 @@
         buttonCheck[setRow][setColumn] = player;
 
         if (buttonCheck[setRow][setColumn] === 1) {
-            document.getElementById(`ButtonR${setRow}C${setColumn}`).style.background = 'black';
+            buttons[setRow][setColumn].style.background = 'black';
         } else if (buttonCheck[setRow][setColumn] === -1) {
-            document.getElementById(`ButtonR${setRow}C${setColumn}`).style.background = 'white';
+            buttons[setRow][setColumn].style.background = 'white';
         }
     }
 
@@ -52,7 +50,7 @@
     function finish() {
         for (let i = 0; i < 15; i++) {
             for (let j = 0; j < 15; j++) {
-                document.getElementById(`ButtonR${i}C${j}`).disabled = true;
+                buttons[i][j].disabled = true;
             }
         }
     }
