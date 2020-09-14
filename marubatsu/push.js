@@ -2,7 +2,6 @@
 
 (() => {
     let buttonCheck = [];
-
     let player = -1;
 
     for (let i = 1; i <= 9; i++) {
@@ -18,7 +17,7 @@
             getGame.appendChild(newBr);
         }
 
-        buttonCheck[i]=0;
+        buttonCheck.add(0);
     }
 
     function colorChange(position, player) {
