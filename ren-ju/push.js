@@ -58,7 +58,7 @@
 
     function finish() {
         for (let i = 0; i < 15; i++) {
-            for(let j = 0; j < 15; j++) {
+            for (let j = 0; j < 15; j++) {
                 document.getElementById(`Buttonl${i}w${j}`).disabled = true;
             }
         }
