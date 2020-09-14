@@ -112,8 +112,6 @@
                 }
                 i++;
             }
-            judge(fix);
-            fix = 0;
         } else {
             let j = 0;
             for (let i = low - column; i < 15; i++) {
@@ -126,9 +124,10 @@
                 }
                 j++;
             }
-            judge(fix);
-            fix = 0;
         }
+        judge(fix);
+        fix = 0;
+
         if (low - 14 + column > 1) {
             let j = 14;
             for (let i = low - 14 + column; i < 15; i++) {
@@ -141,8 +140,6 @@
                 }
                 j--;
             }
-            judge(fix);
-            fix = 0;
         } else {
             let i = 0;
             for (let j = low + column; j > 0; j--) {
@@ -155,7 +152,7 @@
                 }
                 i++;
             }
-            judge(fix);
         }
+        judge(fix);
     }
 })();
