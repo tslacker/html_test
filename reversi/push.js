@@ -73,32 +73,30 @@
                 c = setColumn;
                 r < row && r >= 0 && c < column && c >= 0;
                 r += v[0], c += v[1]) {
-                    
-                if(check[r + v[0]][c + v[1]] != 0) {
-                    check[r][c] = player;
-                    cellSet(r, c);
-                    colorSet(r, c);
-                    if(check[r + v[0]][c + v[1]] === player) {
-                        return;
-                    }
-                    playerChange = true;
+                check[r][c] = player;
+                cellSet(r, c);
+                colorSet(r, c);
+                playerChange = true;
+                if(check[r + v[0]][c + v[1]] === player || check[r + v[0]][c + v[1]] === 0) {
+                    return;
                 }
             }
+            return;
         } else {
             let flag = false;
             for (let r = setRow + v[0],
                         c = setColumn + v[1];
                         r < row && r >= 0 && c < column && c >= 0;
                         r += v[0], c += v[1]) {
-                if (check[r][c] != player && check[r][c] != 0) {
+                if (check[r][c] === 0) {
+                    break;
+                }
+                if (check[r][c] != player) {
                     flag = true;
                 }
                 if (flag) {
                     if (check[r][c] === player) {
-                        reversi(setRow, setColumn, v, true);
-                        break;
-                    } else if (check[r][c] === 0) {
-                        flag = false;
+                        reversi(setRow, setColumn, v, flag);
                     }
                 }
             }
