@@ -85,12 +85,21 @@
                 }
             }
         } else {
-            for (let r = setRow + v[0] * 2,
-                        c = setColumn + v[1] * 2;
+            let flag = false;
+            for (let r = setRow + v[0],
+                        c = setColumn + v[1];
                         r < row && r >= 0 && c < column && c >= 0;
                         r += v[0], c += v[1]) {
-                if(check[r][c] === player && check[r][c] != 0) {
-                    reversi(setRow, setColumn, v, true);
+                if (check[r][c] != player && check[r][c] != 0) {
+                    flag = true;
+                }
+                if (flag) {
+                    if (check[r][c] === player) {
+                        reversi(setRow, setColumn, v, true);
+                        break;
+                    } else if (check[r][c] === 0) {
+                        flag = false;
+                    }
                 }
             }
         }
