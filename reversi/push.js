@@ -112,9 +112,9 @@
 
     function judge() {
         if (!check.flat(Infinity).includes(0)) {
-            if (check.flat(Infinity).includes(1) > buttonCheck.flat(Infinity).includes(2)) {
+            if (check.flat(Infinity).includes(1) > buttonCheck.flat(Infinity).includes(2) || !buttonCheck.flat(Infinity).includes(2)) {
                 result.textContent = '黒の勝ち';
-            } else if (check.flat(Infinity).includes(1) > buttonCheck.flat(Infinity).includes(2)) {
+            } else if (check.flat(Infinity).includes(1) < buttonCheck.flat(Infinity).includes(2) || !buttonCheck.flat(Infinity).includes(1)) {
                 result.textContent = '白の勝ち';
             } else {
                 result.textContent = '引き分け';
