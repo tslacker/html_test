@@ -17,7 +17,7 @@
             getGame.appendChild(newBr);
         }
 
-        buttonCheck.add(0);
+        buttonCheck.push(0);
     }
 
     function colorChange(position, player) {
