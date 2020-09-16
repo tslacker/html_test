@@ -76,7 +76,6 @@
                 r < row && r >= 0 && c < column && c >= 0;
                 r += v[0], c += v[1]) {
 
-                check[r][c] = player;
                 cellSet(r, c);
                 colorSet(r, c);
                 playerChange = true;
