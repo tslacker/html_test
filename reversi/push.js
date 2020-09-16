@@ -3,9 +3,12 @@
 (() => {
     const row = 8;
     const column = 8;
-    const findSet = [[1, 0], [-1, 0], [0, 1],
-                     [0, -1], [-1, -1], [1, -1],
-                     [-1, 1], [1, 1]];
+    const findSet = [
+        [1, 0], [-1, 0], [0, 1],
+        [0, -1], [-1, -1], [1, -1],
+        [-1, 1], [1, 1]
+    ];
+
     let check = [];
     let buttons = [];
     let player;
@@ -69,10 +72,10 @@
 
     function reversi(setRow, setColumn, v, cellReverse) {
         if (cellReverse) {
-            for (let r = setRow,
-                c = setColumn;
+            for (let r = setRow, c = setColumn;
                 r < row && r >= 0 && c < column && c >= 0;
                 r += v[0], c += v[1]) {
+
                 check[r][c] = player;
                 cellSet(r, c);
                 colorSet(r, c);
@@ -81,17 +84,15 @@
                     return;
                 }
             }
-            return;
         } else {
             let flag = false;
-            for (let r = setRow + v[0],
-                        c = setColumn + v[1];
-                        r < row && r >= 0 && c < column && c >= 0;
-                        r += v[0], c += v[1]) {
+            for (let r = setRow + v[0], c = setColumn + v[1];
+                    r < row && r >= 0 && c < column && c >= 0;
+                    r += v[0], c += v[1]) {
+
                 if (check[r][c] === 0) {
-                    break;
-                }
-                if (check[r][c] != player) {
+                    return;
+                } else if (check[r][c] != player) {
                     flag = true;
                 }
                 if (flag) {
