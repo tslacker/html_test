@@ -107,6 +107,8 @@
         if (check[row][column] === 0) {
             cellCheck(row, column);
         }
+
+        skipCheck();
     }
 
     function colorSet(row, column) {
@@ -126,6 +128,50 @@
             } else {
                 result.textContent = '引き分け';
             }
+        }
+    }
+
+    function cellsCheck(row, column, v) {
+        let flag = false;
+        for (let r = row + v[0], c = column + v[1];
+            r < row && r >= 0 && c < column && c >= 0;
+            r += v[0], c += v[1]) {
+
+            if (check[r][c] === 0) {
+                return;
+            } else if (check[r][c] != player) {
+                flag = true;
+            }
+            if (flag) {
+                if (check[r][c] === player) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function skipCheck() {
+        let skip = false;
+        for (let i = 0; i < row; i++) {
+            for (let j = 0; j < column; j++) {
+                for (const v of findSet) {
+                    skip = cellsCheck(i, j, v);
+                    if (skip) {
+                        break;
+                    }
+                }
+                if (skip) {
+                    break;
+                }
+            }
+            if (skip) {
+                break;
+            }
+        }
+        if (skip) {
+            alert('置ける場所がありません。スキップします。');
+            player = player === 1 ? 2 : 1;
         }
     }
 
