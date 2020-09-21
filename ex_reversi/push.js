@@ -8,51 +8,66 @@
         [0, -1], [-1, -1], [1, -1],
         [-1, 1], [1, 1]
     ];
+    const PLAYER = {none: 0, black: 1, white: 2};
 
-    let check = [];
+    let check;
     let buttons = [];
     let player;
     let playerChange = false;
 
     function setButton() {
         const getGame = document.getElementById('game');
-        for (let i = 0; i < row; i++) {
-            const setData = [];
+        check.forEach((cols, i) => {
             buttons.push([]);
-            for (let j = 0; j < column; j++) {
+            cols.forEach((_, k) => {
                 const newButton = document.createElement('button');
-                newButton.style.background = 'green';
-                if (i === 3) {
-                    if (j === 3) {
-                        setData.push(2);
-                        newButton.style.background = 'white';
-                    } else if (j === 4) {
-                        setData.push(1);
-                        newButton.style.background = 'black';
-                    } else {
-                        setData.push(0);
-                    }
-                } else if (i === 4){
-                    if (j === 3) {
-                        setData.push(1);
-                        newButton.style.background = 'black';
-                    } else if (j === 4) {
-                        setData.push(2);
-                        newButton.style.background = 'white';
-                    } else {
-                        setData.push(0);
-                    }
-                } else {
-                    setData.push(0);
-                }
-                newButton.addEventListener('click', () => pushButton(i, j));
+                // newButton.addEventListener('click', () => pushButton(i, k));
+                newButton.addEventListener('click', () => tapBoard(i, k));
                 getGame.appendChild(newButton);
                 buttons[i].push(newButton);
-            }
+                buttons[i][k].style.background = 'green';
+            });
             const newBr = document.createElement('br');
             getGame.appendChild(newBr);
-            check.push(setData);
-            player = 1;
+        });
+        buttons[3][3].style.background = 'white';
+        buttons[4][4].style.background = 'white';
+        buttons[3][4].style.background = 'black';
+        buttons[4][3].style.background = 'black';
+    }
+
+    function initData() {
+        check = [...Array(row)].map(() => Array(column).fill(PLAYER.none));
+        check[3][3] = PLAYER.white;
+        check[4][4] = PLAYER.white;
+        check[3][4] = PLAYER.black;
+        check[4][3] = PLAYER.black;
+        player = PLAYER.black;
+    }
+
+    function tapBoard(tapRow, tapColumn) {
+        findSet.forEach((moveCell) => {
+            if (checkBoard(tapRow, tapColumn, moveCell)) {
+                console.log(`black = ${check.flat().filter((c) => c == PLAYER.black).length}`);
+                console.log(`white = ${check.flat().filter((c) => c == PLAYER.white).length}`);
+            }
+        });
+    }
+
+    function checkBoard(checkRow, checkColumn, moveSel) {
+        let cellCheck = false;
+        for (let r = checkRow + moveSel[0], c = checkColumn + moveSel[1];
+            r < row && r >= 0 && c < column && c >= 0;
+            r += moveSel[0], c += moveSel[1]) {
+            if (check[r][c] === PLAYER.none) {
+                return cellCheck;
+            } else if (check[r][c] != player) {
+                cellCheck = true;
+            } else if (check[r][c] === player) {
+                if (cellCheck) {
+                    return cellCheck;
+                }
+            }
         }
     }
 
@@ -65,40 +80,21 @@
             reversi(row, column, v, false);
         }
         if(playerChange) {
-            player = player === 1 ? 2 : 1;
+            player = player === PLAYER.black ? PLAYER.white : PLAYER.black;
             playerChange = false;
         }
     }
 
-    function reversi(setRow, setColumn, v, cellReverse) {
-        if (cellReverse) {
-            for (let r = setRow, c = setColumn;
-                r < row && r >= 0 && c < column && c >= 0;
-                r += v[0], c += v[1]) {
+    function reversi(setRow, setColumn, v) {
+        for (let r = setRow, c = setColumn;
+            r < row && r >= 0 && c < column && c >= 0;
+            r += v[0], c += v[1]) {
 
-                cellSet(r, c);
-                colorSet(r, c);
-                playerChange = true;
-                if(check[r + v[0]][c + v[1]] === player || check[r + v[0]][c + v[1]] === 0) {
-                    return;
-                }
-            }
-        } else {
-            let flag = false;
-            for (let r = setRow + v[0], c = setColumn + v[1];
-                    r < row && r >= 0 && c < column && c >= 0;
-                    r += v[0], c += v[1]) {
-
-                if (check[r][c] === 0) {
-                    return;
-                } else if (check[r][c] != player) {
-                    flag = true;
-                }
-                if (flag) {
-                    if (check[r][c] === player) {
-                        reversi(setRow, setColumn, v, flag);
-                    }
-                }
+            cellSet(r, c);
+            colorSet(r, c);
+            playerChange = true;
+            if(check[r + v[0]][c + v[1]] === player || check[r + v[0]][c + v[1]] === 0) {
+                return;
             }
         }
     }
@@ -112,18 +108,18 @@
     }
 
     function colorSet(row, column) {
-        if (player == 1) {
+        if (player === PLAYER.black) {
             buttons[row][column].style.background = 'black';
-        } else if (player === 2) {
+        } else if (player === PLAYER.white) {
             buttons[row][column].style.background = 'white';
         }
     }
 
     function judge() {
-        if (!check.flat(Infinity).includes(0)) {
-            if (check.flat(Infinity).includes(1) > check.flat(Infinity).includes(2) || !check.flat(Infinity).includes(2)) {
+        if (!check.flat().includes(PLAYER.none)) {
+            if (check.flat().includes(PLAYER.black) > check.flat().includes(PLAYER.white) || !check.flat().includes(PLAYER.white)) {
                 result.textContent = '黒の勝ち';
-            } else if (check.flat(Infinity).includes(1) < check.flat(Infinity).includes(2) || !check.flat(Infinity).includes(1)) {
+            } else if (check.flat().includes(PLAYER.white) < check.flat().includes(PLAYER.black) || !check.flat().includes(PLAYER.black)) {
                 result.textContent = '白の勝ち';
             } else {
                 result.textContent = '引き分け';
@@ -178,7 +174,7 @@
         }
     }
 
+    initData();
     setButton();
-    judge();
 
 })();

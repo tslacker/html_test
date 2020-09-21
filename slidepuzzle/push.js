@@ -28,6 +28,11 @@
         }
     }
 
-    setButton();
+    function createGame() {
+        document.getElementById('reset').addEventListener('click', () => {
+            setButton();
+        });
+    }
+        createGame();
 
 })();
